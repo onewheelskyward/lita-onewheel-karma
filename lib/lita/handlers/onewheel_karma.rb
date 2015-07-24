@@ -1,21 +1,39 @@
 module Lita
   module Handlers
     class OnewheelKarma < Handler
-      route /(.+)\+\+$/, :add_one_karma,
+      route /(.+)\+\+/, :add_one_karma,
             help: 'object++: Add one karma to [object].'
+      route /(.+)--/, :remove_one_karma,
+            help: 'object++: Remove one karma from [object].'
 
       def add_one_karma(response)
         karma_object = response.matches[0][0]
-        karma = redis.get(karma_object)
-        if karma.nil?
-          karma = 1
-        else
-          karma += 1
-        end
-
-        redis.set(karma_object, karma)
-        response.reply "#{karma_object} has #{karma} karma!"
+        karma = find_and_set_karma(karma_object)
+        response.reply reply_with_karma(karma_object, karma)
       end
+
+      def remove_one_karma(response)
+        karma_object = response.matches[0][0]
+        karma = find_and_set_karma(karma_object, -1)
+        response.reply reply_with_karma(karma_object, karma)
+      end
+
+      def reply_with_karma(karma_object, karma)
+        if karma >= 0
+          "#{karma_object} has #{karma} karma!"
+        else
+          "#{karma_object} has -💩 karma!"
+        end
+      end
+
+      # Find the karma object from redis and increment appropriately.
+      def find_and_set_karma(karma_object, increment_value = 1)
+        karma = redis.get(karma_object).to_i
+        karma += increment_value
+        redis.set(karma_object, karma)
+        karma
+      end
+
     end
 
     Lita.register_handler(OnewheelKarma)
