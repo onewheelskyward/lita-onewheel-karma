@@ -95,4 +95,14 @@ describe Lita::Handlers::OnewheelKarma, lita_handler: true do
     send_message 'a --'
     expect(replies.last).to eq NEGATIVE_MESSAGE
   end
+
+  it 'uri tests' do
+    send_message 'http://www.oregonlive.com/history/2015/07/throwback--thursday-portlands_j.html'
+    expect(replies.last).to eq nil
+  end
+
+  it 'uri tests' do
+    send_message 'http://www.oregonlive.com/history/2015/07/throwback++thursday-portlands_j.html'
+    expect(replies.last).to eq nil
+  end
 end
