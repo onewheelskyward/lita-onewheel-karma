@@ -61,8 +61,38 @@ describe Lita::Handlers::OnewheelKarma, lita_handler: true do
     expect(replies.last).to eq 'a has 9 karma!'
   end
 
+  it 'will add negative arbitrary karma' do
+    send_message 'a+=-9'
+    expect(replies.last).to eq NEGATIVE_MESSAGE
+  end
+
   it 'will subtract arbitrary karma' do
     send_message 'a-=9'
+    expect(replies.last).to eq NEGATIVE_MESSAGE
+  end
+
+  it 'will subtract negative arbitrary karma' do
+    send_message 'a-=-9'
+    expect(replies.last).to eq 'a has 9 karma!'
+  end
+
+  it 'will spacing' do
+    send_message 'a -= -9'
+    expect(replies.last).to eq 'a has 9 karma!'
+  end
+
+  it 'will spacing 2' do
+    send_message 'a += -9'
+    expect(replies.last).to eq NEGATIVE_MESSAGE
+  end
+
+  it 'will spacing 3' do
+    send_message 'a ++'
+    expect(replies.last).to eq 'a has 1 karma!'
+  end
+
+  it 'will spacing 4' do
+    send_message 'a --'
     expect(replies.last).to eq NEGATIVE_MESSAGE
   end
 end
