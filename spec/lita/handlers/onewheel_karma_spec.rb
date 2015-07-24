@@ -55,4 +55,14 @@ describe Lita::Handlers::OnewheelKarma, lita_handler: true do
     # -25
     expect(replies.last).to eq NEGATIVE_MESSAGE
   end
+
+  it 'will add arbitrary karma' do
+    send_message 'a+=9'
+    expect(replies.last).to eq 'a has 9 karma!'
+  end
+
+  it 'will subtract arbitrary karma' do
+    send_message 'a-=9'
+    expect(replies.last).to eq NEGATIVE_MESSAGE
+  end
 end

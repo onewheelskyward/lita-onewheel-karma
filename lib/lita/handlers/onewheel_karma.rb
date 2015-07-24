@@ -5,8 +5,12 @@ module Lita
             help: 'object++: Add one karma to [object].'
       route /(.+)\s*--/, :remove_one_karma,
             help: 'object++: Remove one karma from [object].'
-      route /(.+)\s*\*=\s*(\d+)/, :multiply_karma,
-            help: 'object++: Remove one karma from [object].'
+      route /(.+)\s*\*=\s*([-\d]+)/, :multiply_karma,
+            help: 'object*=n: Multiply karma by n'
+      route /(.+)\s*\+=\s*([-\d]+)/, :add_arbitrary_karma,
+            help: 'object+=n: Add n karma to [object].'
+      route /(.+)\s*-=\s*([-\d]+)/, :remove_arbitrary_karma,
+            help: 'object+=n: Remove n karma from [object].'
 
       def add_one_karma(response)
         karma_object = response.matches[0][0]
@@ -17,6 +21,20 @@ module Lita
       def remove_one_karma(response)
         karma_object = response.matches[0][0]
         karma = find_and_set_karma(karma_object, -1)
+        response.reply reply_with_karma(karma_object, karma)
+      end
+
+      def add_arbitrary_karma(response)
+        karma_object = response.matches[0][0]
+        increment_value = response.matches[0][1].to_i
+        karma = find_and_set_karma(karma_object, increment_value)
+        response.reply reply_with_karma(karma_object, karma)
+      end
+
+      def remove_arbitrary_karma(response)
+        karma_object = response.matches[0][0]
+        increment_value = response.matches[0][1].to_i * -1  # -= means we negate the increment_value.  - -9 = + 9
+        karma = find_and_set_karma(karma_object, increment_value)
         response.reply reply_with_karma(karma_object, karma)
       end
 
