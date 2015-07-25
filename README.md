@@ -2,6 +2,7 @@
 
 [![Build Status](https://travis-ci.org/onewheelskyward/lita-onewheel-karma.png?branch=master)](https://travis-ci.org/onewheelskyward/lita-onewheel-karma)
 [![Coverage Status](https://coveralls.io/repos/onewheelskyward/lita-onewheel-karma/badge.png)](https://coveralls.io/r/onewheelskyward/lita-onewheel-karma)
+[![Documentation Status](https://readthedocs.org/projects/lita-onewheel-karma/badge/?version=latest)](https://readthedocs.org/projects/lita-onewheel-karma/?badge=latest)
 
 Karma should be opinionated, and unlimited.
 
