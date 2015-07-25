@@ -1,3 +1,5 @@
+require 'roman-numerals'
+
 module Lita
   module Handlers
     class OnewheelKarma < Handler
@@ -49,7 +51,7 @@ module Lita
         if karma >= 0
           "#{karma_object} has #{karma} karma!"
         else
-          "#{karma_object} has -💩 karma!"
+          "#{karma_object} has #{RomanNumerals.to_roman(karma * -1)}💩 karma!"
         end
       end
 
