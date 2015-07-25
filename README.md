@@ -22,11 +22,11 @@ n/a at this moment.  I might customize messaging at some point.
 
 Here are a few of the ways you can add/remove/multiply karma:
 
-nick++
-nick--
-nick+=\d+
-nick-=\d+
-nick*=\d+
+* nick++
+* nick--
+* nick+=\d+
+* nick-=\d+
+* nick*=\d+
 
 and negative karma will be expressed with poo emoji and perhaps roman numerals.
 
