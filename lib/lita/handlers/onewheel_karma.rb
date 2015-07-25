@@ -1,9 +1,9 @@
 module Lita
   module Handlers
     class OnewheelKarma < Handler
-      route /([^\s]+)\s*\+\+$/, :add_one_karma,
+      route /([^\s]+)\s*\+\+(\s|$)/, :add_one_karma,
             help: 'object++: Add one karma to [object].'
-      route /([^\s]+)\s*--$/, :remove_one_karma,
+      route /([^\s]+)\s*--(\s|$)/, :remove_one_karma,
             help: 'object++: Remove one karma from [object].'
       route /([^\s]+)\s*\*=\s*([-\d]+)/, :multiply_karma,
             help: 'object*=n: Multiply karma by n'

@@ -3,7 +3,7 @@
 [![Build Status](https://travis-ci.org/onewheelskyward/lita-onewheel-karma.png?branch=master)](https://travis-ci.org/onewheelskyward/lita-onewheel-karma)
 [![Coverage Status](https://coveralls.io/repos/onewheelskyward/lita-onewheel-karma/badge.png)](https://coveralls.io/r/onewheelskyward/lita-onewheel-karma)
 
-TODO: Add a description of the plugin.
+Karma should be opinionated, and unlimited.
 
 ## Installation
 
@@ -15,9 +15,11 @@ gem "lita-onewheel-karma"
 
 ## Configuration
 
-TODO: Describe any configuration attributes the plugin exposes.
+n/a at this moment.  I might customize messaging at some point.
 
 ## Usage
+
+Here are a few of the ways you can add/remove/multiply karma:
 
 nick++
 nick--
@@ -27,4 +29,3 @@ nick*=\d+
 
 and negative karma will be expressed with poo emoji and perhaps roman numerals.
 
-TODO: Describe the plugin's features and how to use them.

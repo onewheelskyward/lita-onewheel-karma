@@ -105,4 +105,14 @@ describe Lita::Handlers::OnewheelKarma, lita_handler: true do
     send_message 'http://www.oregonlive.com/history/2015/07/throwback++thursday-portlands_j.html'
     expect(replies.last).to eq nil
   end
+
+  it 'midstream karmas' do
+    send_message 'I like big a++ and I cannot lie'
+    expect(replies.last).to eq 'a has 1 karma!'
+  end
+
+  it 'midstream karma--s' do
+    send_message 'I like big a-- and I cannot lie'
+    expect(replies.last).to eq NEGATIVE_MESSAGE
+  end
 end
