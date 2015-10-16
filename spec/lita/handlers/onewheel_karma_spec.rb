@@ -2,7 +2,8 @@ require 'spec_helper'
 
 describe Lita::Handlers::OnewheelKarma, lita_handler: true do
   def get_negative(num)
-    "a has #{RomanNumerals.to_roman(num)}💩 karma!"
+    # "a has #{RomanNumerals.to_roman(num)}💩 karma!"
+    "a has -#{num} karma!"
   end
 
   def get_positive(num)
@@ -83,22 +84,22 @@ describe Lita::Handlers::OnewheelKarma, lita_handler: true do
   end
 
   it 'will spacing' do
-    send_message 'a -= -9'
+    send_message 'a-= -9'
     expect(replies.last).to eq get_positive(9)
   end
 
   it 'will spacing 2' do
-    send_message 'a += -9'
+    send_message 'a+= -9'
     expect(replies.last).to eq get_negative(9)
   end
 
   it 'will spacing 3' do
-    send_message 'a ++'
+    send_message 'a++'
     expect(replies.last).to eq get_positive(1)
   end
 
   it 'will spacing 4' do
-    send_message 'a --'
+    send_message 'a--'
     expect(replies.last).to eq get_negative(1)
   end
 
@@ -127,6 +128,11 @@ describe Lita::Handlers::OnewheelKarma, lita_handler: true do
     send_message 'a--'
     send_message 'a--'
     send_message 'a--'
-    expect(replies.last).to include 'a has IV'
+    expect(replies.last).to include 'a has -4'
+  end
+
+  it 'will not space' do
+    send_message 'a ++'
+    expect(replies.last).to eq nil
   end
 end

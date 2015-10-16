@@ -3,16 +3,16 @@ require 'roman-numerals'
 module Lita
   module Handlers
     class OnewheelKarma < Handler
-      route /([^\s]+)\s*\+\+(\s|$)/, :add_one_karma,
+      route /([^\s]+)\+\+(\s|$)/, :add_one_karma,
             help: 'object++: Add one karma to [object].'
-      route /([^\s]+)\s*--(\s|$)/, :remove_one_karma,
+      route /([^\s]+)--(\s|$)/, :remove_one_karma,
             help: 'object++: Remove one karma from [object].'
-      route /([^\s]+)\s*\*=\s*([-\d]+)/, :multiply_karma,
+      route /([^\s]+)\*=\s*([-\d]+)/, :multiply_karma,
             help: 'object*=n: Multiply karma by n'
-      route /([^\s]+)\s*\+=\s*([-\d]+)/, :add_arbitrary_karma,
+      route /([^\s]+)\+=\s*([-\d]+)/, :add_arbitrary_karma,
             help: 'object+=n: Add n karma to [object].'
-      route /([^\s]+)\s*-=\s*([-\d]+)/, :remove_arbitrary_karma,
-            help: 'object+=n: Remove n karma from [object].'
+      route /([^\s]+)-=\s*([-\d]+)/, :remove_arbitrary_karma,
+            help: 'object-=n: Remove n karma from [object].'
 
       def add_one_karma(response)
         karma_object = response.matches[0][0]
@@ -48,11 +48,12 @@ module Lita
       end
 
       def reply_with_karma(karma_object, karma)
-        if karma >= 0
+        # if karma >= 0
           "#{karma_object} has #{karma} karma!"
-        else
-          "#{karma_object} has #{RomanNumerals.to_roman(karma * -1)}💩 karma!"
-        end
+        # else
+          # "#{karma_object} has #{RomanNumerals.to_roman(karma * -1)}💩 karma!"
+          # "#{karma_object} has #{RomanNumerals.to_roman(karma * -1)}💩 karma!"
+        # end
       end
 
       # Find the karma object from redis and increment appropriately.
