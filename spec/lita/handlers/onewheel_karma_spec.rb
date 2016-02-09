@@ -147,4 +147,10 @@ describe Lita::Handlers::OnewheelKarma, lita_handler: true do
     send_command 'karma'
     expect(replies.last).to eq nil
   end
+
+  it 'will ignore @\'s' do
+    send_message '@one++'
+    send_message 'one++'
+    expect(replies.last).to eq('one has 2 karma!')
+  end
 end

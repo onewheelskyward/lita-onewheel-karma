@@ -15,40 +15,44 @@ module Lita
             help: {'karma what' => 'Display karma for what.'}
 
       def add_one_karma(response)
-        karma_object = response.matches[0][0]
+        karma_object = get_karma_object(response)
         karma = find_and_set_karma(karma_object)
         response.reply reply_with_karma(karma_object, karma)
       end
 
+      def get_karma_object(response)
+        response.matches[0][0].sub /^@/, ''
+      end
+
       def remove_one_karma(response)
-        karma_object = response.matches[0][0]
+        karma_object = get_karma_object(response)
         karma = find_and_set_karma(karma_object, -1)
         response.reply reply_with_karma(karma_object, karma)
       end
 
       def add_arbitrary_karma(response)
-        karma_object = response.matches[0][0]
+        karma_object = get_karma_object(response)
         increment_value = response.matches[0][1].to_i
         karma = find_and_set_karma(karma_object, increment_value)
         response.reply reply_with_karma(karma_object, karma)
       end
 
       def remove_arbitrary_karma(response)
-        karma_object = response.matches[0][0]
+        karma_object = get_karma_object(response)
         increment_value = response.matches[0][1].to_i * -1  # -= means we negate the increment_value.  - -9 = + 9
         karma = find_and_set_karma(karma_object, increment_value)
         response.reply reply_with_karma(karma_object, karma)
       end
 
       def multiply_karma(response)
-        karma_object = response.matches[0][0]
+        karma_object = get_karma_object(response)
         multiplier = response.matches[0][1]
         karma = find_and_set_karma(karma_object, multiplier, true)
         response.reply reply_with_karma(karma_object, karma)
       end
 
       def display_karma(response)
-        karma_object = response.matches[0][0]
+        karma_object = get_karma_object(response)
         karma = find_karma karma_object
         response.reply reply_with_karma(karma_object, karma)
       end
