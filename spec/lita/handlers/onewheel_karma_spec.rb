@@ -2,7 +2,6 @@ require 'spec_helper'
 
 describe Lita::Handlers::OnewheelKarma, lita_handler: true do
   def get_negative(num)
-    # "a has #{RomanNumerals.to_roman(num)}💩 karma!"
     "a has -#{num} karma!"
   end
 

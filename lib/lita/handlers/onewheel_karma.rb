@@ -1,5 +1,3 @@
-require 'roman-numerals'
-
 module Lita
   module Handlers
     class OnewheelKarma < Handler
