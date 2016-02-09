@@ -134,4 +134,17 @@ describe Lita::Handlers::OnewheelKarma, lita_handler: true do
     send_message 'a ++'
     expect(replies.last).to eq nil
   end
+
+  it 'will list for an item' do
+    send_message 'dooby++'
+    send_message 'dooby++'
+    send_command 'karma dooby'
+    expect(replies.count).to eq(3)
+    expect(replies.last).to eq('dooby has 2 karma!')
+  end
+
+  it 'will not just karma' do
+    send_command 'karma'
+    expect(replies.last).to eq nil
+  end
 end

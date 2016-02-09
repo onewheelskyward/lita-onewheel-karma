@@ -11,6 +11,8 @@ module Lita
             help: {'object+=n:' => 'Add n karma to [object].'}
       route /([^\s]+)-=\s*([-\d]+)/, :remove_arbitrary_karma,
             help: {'object-=n:' => 'Remove n karma from [object].'}
+      route /karma\s+(.*)$/, :display_karma, command: true,
+            help: {'karma what' => 'Display karma for what.'}
 
       def add_one_karma(response)
         karma_object = response.matches[0][0]
@@ -45,18 +47,21 @@ module Lita
         response.reply reply_with_karma(karma_object, karma)
       end
 
+      def display_karma(response)
+        karma_object = response.matches[0][0]
+        karma = find_karma karma_object
+        response.reply reply_with_karma(karma_object, karma)
+      end
+
+      # Helpers
+
       def reply_with_karma(karma_object, karma)
-        # if karma >= 0
           "#{karma_object} has #{karma} karma!"
-        # else
-          # "#{karma_object} has #{RomanNumerals.to_roman(karma * -1)}💩 karma!"
-          # "#{karma_object} has #{RomanNumerals.to_roman(karma * -1)}💩 karma!"
-        # end
       end
 
       # Find the karma object from redis and increment appropriately.
       def find_and_set_karma(karma_object, increment_value = 1, multiply = false)
-        karma = redis.get(karma_object).to_i
+        karma = find_karma(karma_object)
 
         if multiply
           karma *= increment_value.to_i
@@ -66,6 +71,10 @@ module Lita
 
         redis.set(karma_object, karma)
         karma
+      end
+
+      def find_karma(karma_object)
+        redis.get(karma_object).to_i
       end
 
     end

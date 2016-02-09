@@ -1,6 +1,6 @@
 Gem::Specification.new do |spec|
   spec.name          = 'lita-onewheel-karma'
-  spec.version       = '1.0.1'
+  spec.version       = '1.1.1'
   spec.authors       = ['Andrew Kreps']
   spec.email         = ['andrew.kreps@gmail.com']
   spec.description   = 'Karma with a maths-focused twist.'
