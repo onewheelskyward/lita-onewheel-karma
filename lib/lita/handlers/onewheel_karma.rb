@@ -1,17 +1,27 @@
 module Lita
   module Handlers
     class OnewheelKarma < Handler
-      route /([^\s]+)\+\+(\s|$)/, :add_one_karma,
+      route /([^\s*]+)\+\+(\s|$)/,
+            :add_one_karma,
             help: {'object++:' => 'Add one karma to [object].'}
-      route /([^\s]+)--(\s|$)/, :remove_one_karma,
+      route /([^\s*]+)--(\s|$)/,
+            :remove_one_karma,
             help: {'object++:' => 'Remove one karma from [object].'}
-      route /([^\s]+)\s*\*=\s*([-\d]+)/, :multiply_karma,
+      route /([^\s*]+)\s*\*=\s*([-\d]+)/,
+            :multiply_karma,
             help: {'object*=n:' => 'Multiply karma by n'}
-      route /([^\s]+)\s*\+=\s*([-\d]+)/, :add_arbitrary_karma,
+      route /([^\s*]+)\s*\*\*=\s*([-\d]+)/,
+            :power_karma,
+            help: {'object*=n:' => 'Multiply karma by n'}
+      route /([^\s*]+)\s*\+=\s*([-\d]+)/,
+            :add_arbitrary_karma,
             help: {'object+=n:' => 'Add n karma to [object].'}
-      route /([^\s]+)\s*-=\s*([-\d]+)/, :remove_arbitrary_karma,
+      route /([^\s*]+)\s*-=\s*([-\d]+)/,
+            :remove_arbitrary_karma,
             help: {'object-=n:' => 'Remove n karma from [object].'}
-      route /karma\s+(.*)$/, :display_karma, command: true,
+      route /karma\s+(.*)$/,
+            :display_karma,
+            command: true,
             help: {'karma what' => 'Display karma for what.'}
 
       def add_one_karma(response)
@@ -51,6 +61,18 @@ module Lita
         response.reply reply_with_karma(karma_object, karma)
       end
 
+      def power_karma(response)
+        karma_object = get_karma_object(response)
+        power = response.matches[0][1]
+        karma = find_karma(karma_object)
+        new_karma = karma
+        power.times do
+          new_karma *= karma
+        end
+        set_karma(karma_object, karma)
+        response.reply reply_with_karma(karma_object, karma)
+      end
+
       def display_karma(response)
         karma_object = get_karma_object(response)
         karma = find_karma karma_object
@@ -73,8 +95,12 @@ module Lita
           karma += increment_value
         end
 
-        redis.set(karma_object, karma)
+        set_karma(karma, karma_object)
         karma
+      end
+
+      def set_karma(karma_object, karma)
+        redis.set(karma_object, karma)
       end
 
       def find_karma(karma_object)

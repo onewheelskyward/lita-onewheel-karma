@@ -169,4 +169,36 @@ describe Lita::Handlers::OnewheelKarma, lita_handler: true do
     expect(replies.count).to eq(5)
     expect(replies.last).to eq('karma_bot has 4 karma!')
   end
+
+  it 'will pow pow' do
+    4.times do
+      send_message 'a++'
+    end
+    send_message 'a**=4'
+    expect(replies.last).to eq('a has 16 karma!')
+  end
+
+  it 'will pow pow space' do
+    4.times do
+      send_message 'a++'
+    end
+    send_message 'a **= 4'
+    expect(replies.last).to eq('a has 16 karma!')
+  end
+
+  it 'will pow pow hat' do
+    4.times do
+      send_message 'a++'
+    end
+    send_message 'a^=4'
+    expect(replies.last).to eq('a has 16 karma!')
+  end
+
+  it 'will pow pow hat space' do
+    4.times do
+      send_message 'a++'
+    end
+    send_message 'a ^= 4'
+    expect(replies.last).to eq('a has 16 karma!')
+  end
 end
