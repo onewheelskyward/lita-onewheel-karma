@@ -41,6 +41,12 @@ describe Lita::Handlers::OnewheelKarma, lita_handler: true do
     expect(replies.last).to eq get_positive(2)
   end
 
+  it 'will multiply one karma with spaces' do
+    send_message 'a++'
+    send_message 'a *= 2'
+    expect(replies.last).to eq get_positive(2)
+  end
+
   it 'will multiply many karma' do
     send_message 'a++'
     send_message 'a++'
@@ -152,5 +158,15 @@ describe Lita::Handlers::OnewheelKarma, lita_handler: true do
     send_message '@one++'
     send_message 'one++'
     expect(replies.last).to eq('one has 2 karma!')
+  end
+
+  it 'will *= 1' do
+    send_message 'karma_bot++'
+    send_message 'karma_bot++'
+    send_message 'karma_bot++'
+    send_message 'karma_bot++'
+    send_message 'karma_bot *= 1'
+    expect(replies.count).to eq(5)
+    expect(replies.last).to eq('karma_bot has 4 karma!')
   end
 end
