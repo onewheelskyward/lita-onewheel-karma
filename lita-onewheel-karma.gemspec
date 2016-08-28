@@ -1,6 +1,6 @@
 Gem::Specification.new do |spec|
   spec.name          = 'lita-onewheel-karma'
-  spec.version       = '1.2.2'
+  spec.version       = '1.2.3'
   spec.authors       = ['Andrew Kreps']
   spec.email         = ['andrew.kreps@gmail.com']
   spec.description   = 'Karma with a maths-focused twist.'
@@ -14,7 +14,7 @@ Gem::Specification.new do |spec|
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
   spec.require_paths = ['lib']
 
-  spec.add_runtime_dependency 'lita', '~> 4.7'
+  spec.add_runtime_dependency 'lita', '~> 4'
 
   spec.add_development_dependency 'bundler', '~> 1.3'
   # spec.add_development_dependency 'pry-byebug', '~> 3.1'
